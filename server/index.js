@@ -6,7 +6,12 @@ const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
 
 app.set('port', port)
-
+app.use((req, res, next)=>{
+  res.header({
+    'X-Powered-By': 'OneInvader'
+  })
+  next()
+})
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js')
 config.dev = !(process.env.NODE_ENV === 'production')
@@ -22,7 +27,12 @@ async function start() {
   }
 
   // Give nuxt middleware to express
+
+  // if(!config.dev)
+    app.use('/api', require('../api/api'));
+
   app.use(nuxt.render)
+
 
   // Listen the server
   app.listen(port, host)
