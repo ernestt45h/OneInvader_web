@@ -14,4 +14,4 @@ dist
 .idea
 
 # Creds
-api/settings
+# api/settings
